@@ -1,0 +1,3 @@
+(datetime.datetime(2022, 2, 13, 20, 53, 5, 200720), 'Lat Pulldown', '115', '3', '7')
+(datetime.datetime(2022, 2, 13, 20, 55, 20, 918671), 'Shoulder Press', '65', '3', '7')
+(datetime.datetime(2022, 2, 13, 20, 55, 39, 418856), 'Chest Press', '65', '3', '7')
