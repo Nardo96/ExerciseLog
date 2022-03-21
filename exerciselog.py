@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#%% 
 """
 Created on Sat Feb 12 19:46:44 2022
 
@@ -26,7 +27,7 @@ import tkinter as tk
 #     def import_data(self):
 #         pass
     
-    
+   
 class ExerciseLogGUI():
     """GUI for entering exercise info and exporting record to file."""
     def __init__(self, root):
@@ -70,14 +71,50 @@ class ExerciseLogGUI():
         self.save_record_button = tk.Button(mainframe, text="Save record",
                                             command=self.save_record)
         self.save_record_button.grid(column=4, row=0)
+        
+        #Load saved records
+        self.last_record_label = tk.Label(mainframe, text="Last record:")
+        self.last_record_label.grid(column=0, row=2)
+        logged_records = self.load_records()
+        logged_records_string = ", ".join(logged_records[len(logged_records)-1])
+        self.last_record = tk.StringVar()
+        self.last_record.set(logged_records_string)
+        self.last_record_message = tk.Label(mainframe, textvariable=self.last_record)
+        self.last_record_message.grid(column=1, row=2, columnspan=3,sticky = 'we')
+
        
     def save_record(self):
         """Save exercise log tuple (datetime, str exercise, int weight,
         int sets, int reps) to file"""
-        record = (datetime.now(), self.exercise.get(), self.weight.get(), 
+        record = (datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)"), self.exercise.get(), self.weight.get(), 
                   self.sets.get(), self.reps.get())
         with open("ExerciseLog.txt", "a") as f:
             print(record, file=f, sep="")
+
+    def load_records(self):
+        """Loads exercise log tuple from file and returns a list of records.
+        Uses string manipulation methods to split between datetime portion and
+        other attributes portion because both datetime and tuple 
+        objects delimited by comma. """
+        with open("ExerciseLog.txt", "r") as f:
+            records = []
+            for line in f:
+                datetime_index = line.find(")")
+                record = []
+                record.append(line[:datetime_index+1])
+                tuple_remainder = line[datetime_index+3:len(line)-1]
+                for item in tuple_remainder.split(", "):
+                    cleaned_item = item.replace("'", "")
+                    record.append(cleaned_item)
+                records.append(record)
+            return records
+                
+
+                
+
+                
+                
+
 
        
         
@@ -85,3 +122,4 @@ class ExerciseLogGUI():
 root = tk.Tk()
 ExerciseLogGUI(root)
 root.mainloop()
+# %%
