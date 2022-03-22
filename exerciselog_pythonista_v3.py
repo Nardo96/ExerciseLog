@@ -60,10 +60,10 @@ class ExerciseLogGUI():
         def save_record(self, sender):
             """Save exercise log tuple (datetime, str exercise, int weight,
             int sets, int reps) to file"""
-            record = (datetime.now(), self.exercise, self.weight, 
-                      self.sets, self.reps)
-            with open("ExerciseLog.txt", "a") as f:
-                print(record, file=f, sep="")
+            record = (datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)"), self.exercise.get(), self.weight.get(), 
+                  self.sets.get(), self.reps.get())
+        with open("ExerciseLog.txt", "a") as f:
+            print(record, file=f, sep="")
 
         
         #Button to save record
