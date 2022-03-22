@@ -54,6 +54,7 @@ class ExerciseLogGUI():
                   self.sets, self.reps)
             with open("ExerciseLog.txt", "a") as f:
                 print(record, file=f, sep="")
+            self.save_record_button.title="Saved!"
 
         
         #Button to save record
