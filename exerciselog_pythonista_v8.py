@@ -5,7 +5,6 @@ Created on Sun Feb 13 23:19:40 2022
 @author: Bernardo
 """
 from datetime import datetime
-from logging import PlaceHolder
 import ui
 
 class ExerciseLogGUI():
